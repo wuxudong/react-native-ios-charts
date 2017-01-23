@@ -100,10 +100,10 @@ extension ChartViewBase {
         }
 
         if json["marker"].exists() {
-            var markerFont = UIFont.systemFontOfSize(12.0);
+            var markerFont = UIFont.systemFont(ofSize: 12.0);
 
             if json["marker"]["markerFontSize"].exists() {
-                markerFont = markerFont.fontWithSize(CGFloat(json["marker"]["markerFontSize"].floatValue));
+                markerFont = markerFont.withSize(CGFloat(json["marker"]["markerFontSize"].floatValue));
             }
 
             if json["marker"]["markerFontName"].exists() {
@@ -114,9 +114,9 @@ extension ChartViewBase {
             }
 
             self.marker = BalloonMarker(
-              color: RCTConvert.UIColor(json["marker"]["markerColor"].intValue),
+              color: RCTConvert.uiColor(json["marker"]["markerColor"].intValue),
               font: markerFont,
-              textColor: RCTConvert.UIColor(json["marker"]["markerTextColor"].intValue),
+              textColor: RCTConvert.uiColor(json["marker"]["markerTextColor"].intValue),
               insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
             )
         }

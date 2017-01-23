@@ -2,7 +2,7 @@ use_frameworks!
 
 target 'ChartsExplorer' do
   pod 'SwiftyJSON', git: 'https://github.com/IBM-Swift/SwiftyJSON.git'
-  pod 'Charts', git: 'https://github.com/danielgindi/Charts.git', branch: 'Swift-3.0'
+  pod 'Charts', git: 'https://github.com/consenlabs/Charts.git', branch: 'Swift-3.0'
 end
 
 post_install do |installer|

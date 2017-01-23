@@ -20,6 +20,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		142EB8961E35DA8800DF89D6 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142EB8951E35DA8800DF89D6 /* BalloonMarker.swift */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		7ACADD3C83124EDE5ABD29A1 /* Pods_ChartsExplorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12D5F7FD8DF01F4D58C85194 /* Pods_ChartsExplorer.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -157,6 +158,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ChartsExplorer/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ChartsExplorer/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ChartsExplorer/main.m; sourceTree = "<group>"; };
+		142EB8951E35DA8800DF89D6 /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BalloonMarker.swift; path = "../node_modules/react-native-ios-charts/RNiOSCharts/BalloonMarker.swift"; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		37977CEFDC31BAF68FFCED50 /* Pods-ChartsExplorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChartsExplorer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChartsExplorer/Pods-ChartsExplorer.debug.xcconfig"; sourceTree = "<group>"; };
 		51700D6D699C1E6D9ED5BACC /* Pods-ChartsExplorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChartsExplorer.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChartsExplorer/Pods-ChartsExplorer.release.xcconfig"; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		13B07FAE1A68108700A75B9A /* ChartsExplorer */ = {
 			isa = PBXGroup;
 			children = (
+				142EB8951E35DA8800DF89D6 /* BalloonMarker.swift */,
 				98708CAA1C9DB3030086ED32 /* RNCombinedChart.swift */,
 				98708CAB1C9DB3030086ED32 /* chartDataHelpers.swift */,
 				98708CAC1C9DB3030086ED32 /* RNCombinedChart.h */,
@@ -504,7 +507,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -688,7 +691,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		782195CD6CC6438BB2FCCFE5 /* [CP] Copy Pods Resources */ = {
@@ -770,6 +773,7 @@
 				98B3E4C51C97E4EE00200ABC /* RNBarChart.m in Sources */,
 				98B3E4C91C97E4EE00200ABC /* RNHorizontalBarChart.swift in Sources */,
 				98B3E4B71C97E4EE00200ABC /* RNScatterChart.swift in Sources */,
+				142EB8961E35DA8800DF89D6 /* BalloonMarker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
