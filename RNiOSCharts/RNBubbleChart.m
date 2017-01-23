@@ -7,7 +7,7 @@
 //
 
 #import "RNBubbleChart.h"
-#import "RCTViewManager.h"
+#import "React/RCTViewManager.h"
 
 @interface RCT_EXTERN_MODULE(RNBubbleChartSwift, RCTViewManager)
 

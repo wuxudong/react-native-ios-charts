@@ -1,13 +1,13 @@
 //
 //  RNHorizontalBarChart.m
-//  
+//
 //
 //  Created by Jose Padilla on 1/29/16.
 //
 //
 
 #import "RNBarChart.h"
-#import "RCTViewManager.h"
+#import "React/RCTViewManager.h"
 
 @interface RCT_EXTERN_MODULE(RNHorizontalBarChartSwift, RCTViewManager)
 
