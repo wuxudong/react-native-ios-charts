@@ -14,6 +14,7 @@
 
 import Foundation;
 import Charts;
+import SwiftyJSON;
 
 open class BalloonMarker: MarkerView
 {
@@ -85,7 +86,15 @@ open class BalloonMarker: MarkerView
     
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
     {
-        let label = entry.y.description
+      
+        var label = entry.y.description;
+      
+        if let object = entry.data as? JSON {
+            if object["marker"].exists() {
+                label = object["marker"].stringValue;
+            }
+        }
+      
         labelns = label as NSString
         
         _drawAttributes.removeAll()

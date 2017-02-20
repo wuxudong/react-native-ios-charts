@@ -32,7 +32,8 @@ export default class TimeSeriesLine extends Component {
         label: 'refer',
         drawCubic: true,
         drawCircles: false,
-        lineWidth: 2
+        lineWidth: 2,
+        highlightEnabled: false
       }, {
         values: [{x:5, y:15}, {x:10,y:200}, {x:18, y:400}, {x:39, y:2000, marker: "you are overweight"}],
         drawValues: false,
@@ -55,6 +56,7 @@ export default class TimeSeriesLine extends Component {
       },
       xAxis: {
         axisLineWidth: 0,
+        axisMaximum: 50,
         drawLabels: false,
         position: 'bottom',
         drawGridLines: false
