@@ -20,29 +20,34 @@ export default class Bubble extends Component {
       dataSets: [{
         values: [{
           size: 23.4,
-          value: 8
+          x:1990,
+          y: 8
         }, {
           size: 17.4,
-          value: 5
+          x:1991,
+          y: 5
         }, {
           size: 6.0,
-          value: 2
+          x:1992,
+          y: 2
         }, {
           size: 52.0,
-          value: 12
+          x:1993,
+          y: 12
         }, {
           size: 40.1,
-          value: 10
+          x:1994,
+          y: 10
         }],
         colors: ['rgba(241, 152, 174, 0.7)'],
         label: 'Company A'
       }],
-      labels: ['1990', '1991', '1992', '1993', '1994'],
       legend: {
         showLegend: false
       },
       xAxis: {
-        position: 'bottom'
+        position: 'bottom',
+        granularity:1,
       },
       leftAxis: {
         spaceBottom: 0.05

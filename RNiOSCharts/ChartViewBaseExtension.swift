@@ -50,32 +50,7 @@ extension ChartViewBase {
         if json["descriptionTextColor"].exists() {
             self.descriptionTextColor = RCTConvert.uiColor(json["descriptionTextColor"].intValue);
         }
-
-        if json["descriptionTextPosition"].exists() &&
-            json["descriptionTextPosition"]["x"].exists() &&
-            json["descriptionTextPosition"]["y"].exists() {
-
-                self.setDescriptionTextPosition(
-                    x: CGFloat(json["descriptionTextPosition"]["x"].floatValue),
-                    y: CGFloat(json["descriptionTextPosition"]["y"].floatValue)
-                )
-        }
-
-        if json["infoTextFontName"].exists() {
-            self.infoFont = UIFont(
-                name: json["infoTextFontName"].stringValue,
-                size: self.infoFont!.pointSize
-            );
-        }
-
-        if json["infoTextFontSize"].exists() {
-            self.infoFont = self.infoFont?.withSize(CGFloat(json["infoTextFontSize"].floatValue));
-        }
-
-        if json["infoTextColor"].exists() {
-            self.infoTextColor = RCTConvert.uiColor(json["infoTextColor"].intValue);
-        }
-
+        
         if json["descriptionTextAlign"].exists() {
             switch (json["descriptionTextAlign"].stringValue) {
             case "left":
@@ -113,12 +88,14 @@ extension ChartViewBase {
                 )!;
             }
 
-            self.marker = BalloonMarker(
-              color: RCTConvert.uiColor(json["marker"]["markerColor"].intValue),
-              font: markerFont,
-              textColor: RCTConvert.uiColor(json["marker"]["markerTextColor"].intValue),
-              insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
-            )
+            let ballonMarker = BalloonMarker();
+            ballonMarker.setAttribute(
+                    color: RCTConvert.uiColor(json["marker"]["markerColor"].intValue),
+                    font: markerFont,
+                    textColor: RCTConvert.uiColor(json["marker"]["markerTextColor"].intValue),
+                    insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0));
+            self.marker = ballonMarker;
+          
         }
 
         if json["showLegend"].exists() {
@@ -152,46 +129,46 @@ extension ChartViewBase {
             if json["legend"]["position"].exists() {
                 switch(json["legend"]["position"].stringValue) {
                 case "rightOfChart":
-                    self.legend.position = ChartLegend.Position.rightOfChart;
+                    self.legend.position = Legend.Position.rightOfChart;
                     break;
                 case "rightOfChartCenter":
-                    self.legend.position = ChartLegend.Position.rightOfChartCenter;
+                    self.legend.position = Legend.Position.rightOfChartCenter;
                     break;
                 case "rightOfChartInside":
-                    self.legend.position = ChartLegend.Position.rightOfChartInside;
+                    self.legend.position = Legend.Position.rightOfChartInside;
                     break;
                 case "leftOfChart":
-                    self.legend.position = ChartLegend.Position.leftOfChart;
+                    self.legend.position = Legend.Position.leftOfChart;
                     break;
                 case "leftOfChartCenter":
-                    self.legend.position = ChartLegend.Position.leftOfChartCenter;
+                    self.legend.position = Legend.Position.leftOfChartCenter;
                     break;
                 case "leftOfChartInside":
-                    self.legend.position = ChartLegend.Position.leftOfChartInside;
+                    self.legend.position = Legend.Position.leftOfChartInside;
                     break;
                 case "belowChartLeft":
-                    self.legend.position = ChartLegend.Position.belowChartLeft;
+                    self.legend.position = Legend.Position.belowChartLeft;
                     break;
                 case "belowChartRight":
-                    self.legend.position = ChartLegend.Position.belowChartRight;
+                    self.legend.position = Legend.Position.belowChartRight;
                     break;
                 case "belowChartCenter":
-                    self.legend.position = ChartLegend.Position.belowChartCenter;
+                    self.legend.position = Legend.Position.belowChartCenter;
                     break;
                 case "aboveChartLeft":
-                    self.legend.position = ChartLegend.Position.aboveChartLeft;
+                    self.legend.position = Legend.Position.aboveChartLeft;
                     break;
                 case "aboveChartRight":
-                    self.legend.position = ChartLegend.Position.aboveChartRight;
+                    self.legend.position = Legend.Position.aboveChartRight;
                     break;
                 case "aboveChartCenter":
-                    self.legend.position = ChartLegend.Position.aboveChartCenter;
+                    self.legend.position = Legend.Position.aboveChartCenter;
                     break;
                 case "pieChartCenter":
-                    self.legend.position = ChartLegend.Position.piechartCenter;
+                    self.legend.position = Legend.Position.piechartCenter;
                     break;
                 default:
-                    self.legend.position = ChartLegend.Position.belowChartLeft;
+                    self.legend.position = Legend.Position.belowChartLeft;
                     break;
                 }
             }
@@ -199,16 +176,16 @@ extension ChartViewBase {
             if json["legend"]["form"].exists() {
                 switch(json["legend"]["form"]) {
                 case "square":
-                    self.legend.form = ChartLegend.Form.square;
+                    self.legend.form = Legend.Form.square;
                     break;
                 case "circle":
-                    self.legend.form = ChartLegend.Form.circle;
+                    self.legend.form = Legend.Form.circle;
                     break;
                 case "line":
-                    self.legend.form = ChartLegend.Form.line;
+                    self.legend.form = Legend.Form.line;
                     break;
                 default:
-                    self.legend.form = ChartLegend.Form.square;
+                    self.legend.form = Legend.Form.square;
                     break;
                 }
             }
@@ -262,8 +239,8 @@ extension ChartViewBase {
         }
 
         if json["highlightValues"].exists() {
-            let highlightValues = json["highlightValues"].arrayValue.map({$0.intValue});
-            self.highlightValues(highlightValues.map({return ChartHighlight(xIndex: $0, dataSetIndex: 0)}));
+            let highlightValues = json["highlightValues"].arrayValue.map({$0.doubleValue});
+            self.highlightValues(highlightValues.map({return Highlight(x: $0, dataSetIndex: 0, stackIndex: 0)}));
         }
 
         if json["animation"].exists() {

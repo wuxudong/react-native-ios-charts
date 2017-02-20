@@ -35,6 +35,7 @@ class RNRadarChart : RadarChartView {
     
     if json["labels"].exists() {
       labels = json["labels"].arrayValue.map({$0.stringValue});
+      self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
     }
     
     if json["dataSets"].exists() {
@@ -45,16 +46,25 @@ class RNRadarChart : RadarChartView {
       for set in dataSets! {
         let tmp = JSON(set);
         if tmp["values"].exists() {
-          let values = tmp["values"].arrayValue.map({$0.doubleValue});
+          let values = tmp["values"].arrayObject!;
           let label = tmp["label"].exists() ? tmp["label"].stringValue : "";
           var dataEntries: [ChartDataEntry] = [];
           
           for i in 0..<values.count {
-            let dataEntry = ChartDataEntry(value: values[i], xIndex: i);
+            let object = JSON(values[i]);
+            
+            var dataEntry : RadarChartDataEntry;
+            if(object.double != nil) {
+              dataEntry = RadarChartDataEntry(value: object.double!);
+            } else {
+              let value = object["value"].doubleValue;
+              dataEntry = RadarChartDataEntry(value: value, data:object as AnyObject?);
+            }
+            
             dataEntries.append(dataEntry);
           }
           
-          let dataSet = RadarChartDataSet(yVals: dataEntries, label: label);
+          let dataSet = RadarChartDataSet(values: dataEntries, label: label);
           
           if tmp["colors"].exists() {
             let arrColors = tmp["colors"].arrayValue.map({$0.intValue});
@@ -108,16 +118,18 @@ class RNRadarChart : RadarChartView {
               maximumDecimalPlaces = json["valueFormatter"]["maximumDecimalPlaces"].intValue;
             }
             
+            var numberFormatter = NumberFormatter();
+            
             if json["valueFormatter"]["type"].exists() {
               switch(json["valueFormatter"]["type"]) {
               case "regular":
-                dataSet.valueFormatter = NumberFormatter();
+                numberFormatter = NumberFormatter();
                 break;
               case "abbreviated":
-                dataSet.valueFormatter = ABNumberFormatter(minimumDecimalPlaces: minimumDecimalPlaces, maximumDecimalPlaces: maximumDecimalPlaces);
+                numberFormatter = ABNumberFormatter(minimumDecimalPlaces: minimumDecimalPlaces, maximumDecimalPlaces: maximumDecimalPlaces);
                 break;
               default:
-                dataSet.valueFormatter = NumberFormatter();
+                numberFormatter = NumberFormatter();
               }
             }
             
@@ -125,56 +137,58 @@ class RNRadarChart : RadarChartView {
               switch(json["valueFormatter"]["numberStyle"]) {
               case "CurrencyAccountingStyle":
                 if #available(iOS 9.0, *) {
-                  dataSet.valueFormatter?.numberStyle = .currencyAccounting;
+                  numberFormatter.numberStyle = .currencyAccounting;
                 }
                 break;
               case "CurrencyISOCodeStyle":
                 if #available(iOS 9.0, *) {
-                  dataSet.valueFormatter?.numberStyle = .currencyISOCode;
+                  numberFormatter.numberStyle = .currencyISOCode;
                 }
                 break;
               case "CurrencyPluralStyle":
                 if #available(iOS 9.0, *) {
-                  dataSet.valueFormatter?.numberStyle = .currencyPlural;
+                  numberFormatter.numberStyle = .currencyPlural;
                 }
                 break;
               case "CurrencyStyle":
-                dataSet.valueFormatter?.numberStyle = .currency;
+                numberFormatter.numberStyle = .currency;
                 break;
               case "DecimalStyle":
-                dataSet.valueFormatter?.numberStyle = .decimal;
+                numberFormatter.numberStyle = .decimal;
                 break;
               case "NoStyle":
-                dataSet.valueFormatter?.numberStyle = .none;
+                numberFormatter.numberStyle = .none;
                 break;
               case "OrdinalStyle":
                 if #available(iOS 9.0, *) {
-                  dataSet.valueFormatter?.numberStyle = .ordinal;
+                  numberFormatter.numberStyle = .ordinal;
                 }
                 break;
               case "PercentStyle":
-                dataSet.valueFormatter?.numberStyle = .percent;
+                numberFormatter.numberStyle = .percent;
                 break;
               case "ScientificStyle":
-                dataSet.valueFormatter?.numberStyle = .scientific;
+                numberFormatter.numberStyle = .scientific;
                 break;
               case "SpellOutStyle":
-                dataSet.valueFormatter?.numberStyle = .spellOut;
+                numberFormatter.numberStyle = .spellOut;
                 break;
               default:
-                dataSet.valueFormatter?.numberStyle = .none;
+                numberFormatter.numberStyle = .none;
               }
             }
             
-            dataSet.valueFormatter?.minimumFractionDigits = minimumDecimalPlaces;
-            dataSet.valueFormatter?.maximumFractionDigits = maximumDecimalPlaces;
+            numberFormatter.minimumFractionDigits = minimumDecimalPlaces;
+            numberFormatter.maximumFractionDigits = maximumDecimalPlaces;
+            
+            dataSet.valueFormatter = DefaultValueFormatter(formatter: numberFormatter);
           }
           
           sets.append(dataSet);
         }
       }
       
-      let chartData = RadarChartData(xVals: labels, dataSets: sets);
+      let chartData = RadarChartData(dataSets: sets);
       self.data = chartData;
       
       if json["webLineWidth"].exists() {

@@ -33,9 +33,10 @@ class RNBubbleChart : BubbleChartView {
     
     if json["labels"].exists() {
       labels = json["labels"].arrayValue.map({$0.stringValue});
+      self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
     }
     
-    self.data = getBubbleData(labels, json: json);
+    self.data = getBubbleData(json: json);
     
   }
   

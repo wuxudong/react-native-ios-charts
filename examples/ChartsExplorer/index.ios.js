@@ -12,6 +12,7 @@ import {
 import Pie from './components/Pie';
 import Bar from './components/Bar';
 import Line from './components/Line';
+import TimeSeriesLine from './components/TimeSeriesLine';
 import Radar from './components/Radar';
 import Bubble from './components/Bubble';
 import Scatter from './components/Scatter';
@@ -65,6 +66,10 @@ const data = ds.cloneWithRows([
     id: 11,
     title: 'Live Updating graph',
     description: 'Live updating a line chart'
+  }, {
+    id: 12,
+    title: '<TimeSeriesLineChart>',
+    description: 'Displays a TimeSeriesLineChart'
   }
 ]);
 
@@ -170,6 +175,11 @@ class ChartsExplorer extends Component {
         content = <LiveUpdating/>;
         navText = 'Live Updating';
         break;
+      case 12:
+        content = <TimeSeriesLine/>;
+        navText = 'TimeSeriesLineChart';
+        break;
+
       default:
         content = null;
         break;

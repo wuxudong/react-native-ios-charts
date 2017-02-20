@@ -19,11 +19,10 @@ export default class Pie extends Component {
   render() {
     const config = {
       dataSets: [{
-        values: [0.14, 0.14, 0.34, 0.38],
+        values: [{value:0.14, label:"Quarter 1"}, {value:0.14, label:"Quarter 2"}, {value:0.34, label:"Quarter 3"}, {y:0.38, label:"Quarter 4"}],
         colors: ['rgb(197, 255, 140)', 'rgb(255, 247, 140)', 'rgb(255, 210, 141)', 'rgb(140, 235, 255)'],
         label: 'Quarter Revenues 2014'
       }],
-      labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
       centerText: 'Quartely Revenue',
       legend: {
         position: 'aboveChartRight',

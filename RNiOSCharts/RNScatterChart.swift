@@ -33,8 +33,9 @@ class RNScatterChart : ScatterChartView {
     
     if json["labels"].exists() {
       labels = json["labels"].arrayValue.map({$0.stringValue});
+      self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
     }
     
-    self.data = getScatterData(labels, json: json);
+    self.data = getScatterData(json: json);
   }
 }

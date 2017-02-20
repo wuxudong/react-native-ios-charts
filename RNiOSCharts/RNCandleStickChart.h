@@ -6,7 +6,7 @@
 //  Copyright © 2015 Facebook. All rights reserved.
 //
 
-#import "RCTView.h"
+#import "React/RCTView.h"
 
 @interface RNCandleStickChart : RCTView
 

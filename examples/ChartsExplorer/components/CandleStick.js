@@ -48,7 +48,8 @@ export default class CandleStick extends Component {
       legend: {
       },
       xAxis: {
-        position: 'bottom'
+        position: 'bottom',
+        granularity:1,
       },
       leftAxis: {
         drawGridLines: false,

@@ -51,19 +51,19 @@ export default class Combined extends Component {
         dataSets: [{
           values: [{
             size: 23.4,
-            value: 10080
+            y: 10080
           }, {
             size: 17.4,
-            value: 10050
+            y: 10050
           }, {
             size: 6.0,
-            value: 1060
+            y: 1060
           }, {
             size: 52.0,
-            value: 7100
+            y: 7100
           }, {
             size: 40.1,
-            value: 6005
+            y: 6005
           }],
           colors: ['rgba(241, 152, 174, 0.7)'],
           label: 'Company A',
@@ -127,7 +127,8 @@ export default class Combined extends Component {
       labels: ['1990', '1991', '1992', '1993', '1994'],
       showLegend: false,
       xAxis: {
-        position: 'bottom'
+        position: 'bottom',
+        granularity:1,
       },
       leftAxis: {
         drawGridLines: false,

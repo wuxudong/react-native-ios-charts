@@ -20,26 +20,37 @@ export default class Bar extends Component {
   render() {
     const config = {
       dataSets: [{
-        values: [5, 40, 77, 81, 43],
-        drawValues: false,
+        values: [5, 40, 77, 81, 43, 5, 40, 77, 81, 43],
+        drawValues: true,
         colors: ['rgb(107, 243, 174)'],
         label: 'Company A'
       }, {
-        values: [40, 5, 50, 23, 79],
-        drawValues: false,
+        values: [5, 40, 77, 81, 43, 5, 40, 77, 81, 43],
+        drawValues: true,
         colors: ['rgb(166, 232, 255)'],
         label: 'Company B'
       }, {
-        values: [10, 55, 35, 90, 82],
-        drawValues: false,
+        values: [5, 40, 77, 81, 43, 5, 40, 77, 81, 43],
+        drawValues: true,
         colors: ['rgb(248, 248, 157)'],
         label: 'Company C'
       }],
-      labels: ['1990', '1991', '1992', '1993', '1994'],
+      barWidth : 0.2,
+      labels: ['1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999'],
       legend: {
       },
       xAxis: {
-        position: 'bottom'
+        position: 'bottom',
+        labelCount:10,
+        granularity:1,
+        axisMinimum: 0,
+        axisMaximum: 10,
+        centerAxisLabelsEnabled: true
+      },
+      group: {
+        fromX: 0,
+        groupSpace : 0.1,
+        barSpace : 0.1,
       },
       leftAxis: {
         drawGridLines: false,

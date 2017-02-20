@@ -15,7 +15,7 @@
 import Foundation;
 import Charts;
 
-open class BalloonMarker: ChartMarker
+open class BalloonMarker: MarkerView
 {
     open var color: UIColor?
     open var arrowSize = CGSize(width: 15, height: 11)
@@ -29,10 +29,11 @@ open class BalloonMarker: ChartMarker
     fileprivate var _size: CGSize = CGSize()
     fileprivate var _paragraphStyle: NSMutableParagraphStyle?
     fileprivate var _drawAttributes = [String : AnyObject]()
-    
-    public init(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets)
+  
+  
+  
+    public func setAttribute(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets)
     {
-        super.init()
         
         self.color = color
         self.font = font
@@ -43,7 +44,7 @@ open class BalloonMarker: ChartMarker
         _paragraphStyle?.alignment = .center
     }
     
-    open override var size: CGSize { return _size; }
+  
     
     open override func draw(context: CGContext, point: CGPoint)
     {
@@ -82,9 +83,9 @@ open class BalloonMarker: ChartMarker
         context.restoreGState()
     }
     
-    open override func refreshContent(entry: ChartDataEntry, highlight: ChartHighlight)
+    open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
     {
-        let label = entry.value.description
+        let label = entry.y.description
         labelns = label as NSString
         
         _drawAttributes.removeAll()

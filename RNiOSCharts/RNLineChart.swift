@@ -37,16 +37,14 @@ class RNLineChart : LineChartView {
         
         if json["labels"].exists() {
             labels = json["labels"].arrayValue.map({$0.stringValue});
+            self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
         }
       
-        self.data = getLineData(labels, json: json);
+        self.data = getLineData(json: json);
       
         if json["drawMarkers"].exists() {
           self.drawMarkers = json["drawMarkers"].boolValue;
         }
-        
-        if json["leftAxis"]["startAtZero"].exists() {
-            self.leftAxis.startAtZeroEnabled = json["leftAxis"]["startAtZero"].boolValue;
-        }
+      
     }
 }

@@ -33,8 +33,9 @@ class RNCandleStickChart : CandleStickChartView {
     
     if json["labels"].exists() {
       labels = json["labels"].arrayValue.map({$0.stringValue});
+      self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
     }
     
-    self.data = getCandleStickData(labels, json: json);
+    self.data = getCandleStickData(json: json);
   }
 }

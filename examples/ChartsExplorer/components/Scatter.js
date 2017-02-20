@@ -41,7 +41,8 @@ export default class Scatter extends Component {
       legend: {
       },
       xAxis: {
-        position: 'bottom'
+        position: 'bottom',
+        granularity:1,
       },
       leftAxis: {
         spaceBottom: 0.05

@@ -28,7 +28,7 @@ export default class HorizontalBar extends Component {
       minOffset: 20,
       xAxis: {
         axisLineWidth: 0,
-        position: 'bottom'
+        position: 'bottom',
       },
       leftAxis: {
         spaceTop: 0.18

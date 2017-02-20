@@ -33,32 +33,29 @@ class RNCombinedChart : CombinedChartView {
     
     if json["labels"].exists() {
       labels = json["labels"].arrayValue.map({$0.stringValue});
+      self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
     }
     
-    let data = CombinedChartData(xVals: labels);
+    let data = CombinedChartData();
     
     if json["lineData"].exists() {
-      data.lineData = getLineData(labels, json: json["lineData"]);
+      data.lineData = getLineData(json: json["lineData"]);
     }
 
     if json["barData"].exists() {
-      data.barData = getBarData(labels, json: json["barData"]);
+      data.barData = getBarData(json: json["barData"]);
     }
     
     if json["bubbleData"].exists() {
-      data.bubbleData = getBubbleData(labels, json: json["bubbleData"]);
+      data.bubbleData = getBubbleData(json: json["bubbleData"]);
     }
     
     if json["scatterData"].exists() {
-      data.scatterData = getScatterData(labels, json: json["scatterData"]);
+      data.scatterData = getScatterData(json: json["scatterData"]);
     }
     
     if json["candleData"].exists() {
-      data.candleData = getCandleStickData(labels, json: json["candleData"]);
-    }
-    
-    if json["drawHighlightArrowEnabled"].exists() {
-      self.drawHighlightArrowEnabled = json["drawHighlightArrowEnabled"].boolValue;
+      data.candleData = getCandleStickData(json: json["candleData"]);
     }
     
     if json["drawValueAboveBarEnabled"].exists() {

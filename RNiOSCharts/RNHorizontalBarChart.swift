@@ -35,6 +35,7 @@ class RNHorizontalBarChart : HorizontalBarChartView {
         
         if json["labels"].exists() {
             labels = json["labels"].arrayValue.map({$0.stringValue});
+            self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
         }
         
         if json["dataSets"].exists() {
@@ -45,25 +46,32 @@ class RNHorizontalBarChart : HorizontalBarChartView {
             for set in dataSets! {
                 let tmp = JSON(set);
                 if tmp["values"].exists() {
-                    let values = tmp["values"].arrayValue.map({$0.doubleValue});
+                    let values = tmp["values"].arrayObject!;
                     let label = tmp["label"].exists() ? tmp["label"].stringValue : "";
                     var dataEntries: [BarChartDataEntry] = [];
                     
                     for i in 0..<values.count {
-                        let dataEntry = BarChartDataEntry(value: values[i], xIndex: i);
+                        let object = JSON(values[i]);
+                      
+                        var dataEntry : BarChartDataEntry;
+                        if(object.double != nil) {
+                          dataEntry = BarChartDataEntry(x: Double(i), y: object.double!);
+                        } else {
+                          let x = object["x"].exists() ? object["x"].doubleValue : Double(i);
+                          let y = object["y"].doubleValue;
+                          dataEntry = BarChartDataEntry(x:x, y:y, data:object as AnyObject?);
+                        }
+                      
+                      
                         dataEntries.append(dataEntry);
                     }
                     
-                    let dataSet = BarChartDataSet(yVals: dataEntries, label: label);
+                    let dataSet = BarChartDataSet(values: dataEntries, label: label);
                     
                     if tmp["barShadowColor"].exists() {
                         dataSet.barShadowColor = RCTConvert.uiColor(tmp["barShadowColor"].intValue);
                     }
-                    
-                    if tmp["barSpace"].exists() {
-                        dataSet.barSpace = CGFloat(tmp["barSpace"].floatValue);
-                    }
-                    
+                  
                     if tmp["highlightAlpha"].exists() {
                         dataSet.highlightAlpha = CGFloat(tmp["highlightAlpha"].floatValue);
                     }
@@ -123,17 +131,19 @@ class RNHorizontalBarChart : HorizontalBarChartView {
                         if json["valueFormatter"]["maximumDecimalPlaces"].exists() {
                             maximumDecimalPlaces = json["valueFormatter"]["maximumDecimalPlaces"].intValue;
                         }
-                        
+                      
+                        var numberFormatter = NumberFormatter();
+                      
                         if json["valueFormatter"]["type"].exists() {
                             switch(json["valueFormatter"]["type"]) {
                             case "regular":
-                                dataSet.valueFormatter = NumberFormatter();
+                                numberFormatter = NumberFormatter();
                                 break;
                             case "abbreviated":
-                                dataSet.valueFormatter = ABNumberFormatter(minimumDecimalPlaces: minimumDecimalPlaces, maximumDecimalPlaces: maximumDecimalPlaces);
+                                numberFormatter = ABNumberFormatter(minimumDecimalPlaces: minimumDecimalPlaces, maximumDecimalPlaces: maximumDecimalPlaces);
                                 break;
                             default:
-                                dataSet.valueFormatter = NumberFormatter();
+                                numberFormatter = NumberFormatter();
                             }
                         }
                         
@@ -141,65 +151,63 @@ class RNHorizontalBarChart : HorizontalBarChartView {
                             switch(json["valueFormatter"]["numberStyle"]) {
                             case "CurrencyAccountingStyle":
                                 if #available(iOS 9.0, *) {
-                                    dataSet.valueFormatter?.numberStyle = .currencyAccounting;
+                                    numberFormatter.numberStyle = .currencyAccounting;
                                 }
                                 break;
                             case "CurrencyISOCodeStyle":
                                 if #available(iOS 9.0, *) {
-                                    dataSet.valueFormatter?.numberStyle = .currencyISOCode;
+                                    numberFormatter.numberStyle = .currencyISOCode;
                                 }
                                 break;
                             case "CurrencyPluralStyle":
                                 if #available(iOS 9.0, *) {
-                                    dataSet.valueFormatter?.numberStyle = .currencyPlural;
+                                    numberFormatter.numberStyle = .currencyPlural;
                                 }
                                 break;
                             case "CurrencyStyle":
-                                dataSet.valueFormatter?.numberStyle = .currency;
+                                numberFormatter.numberStyle = .currency;
                                 break;
                             case "DecimalStyle":
-                                dataSet.valueFormatter?.numberStyle = .decimal;
+                                numberFormatter.numberStyle = .decimal;
                                 break;
                             case "NoStyle":
-                                dataSet.valueFormatter?.numberStyle = .none;
+                                numberFormatter.numberStyle = .none;
                                 break;
                             case "OrdinalStyle":
                                 if #available(iOS 9.0, *) {
-                                    dataSet.valueFormatter?.numberStyle = .ordinal;
+                                    numberFormatter.numberStyle = .ordinal;
                                 }
                                 break;
                             case "PercentStyle":
-                                dataSet.valueFormatter?.numberStyle = .percent;
+                                numberFormatter.numberStyle = .percent;
                                 break;
                             case "ScientificStyle":
-                                dataSet.valueFormatter?.numberStyle = .scientific;
+                                numberFormatter.numberStyle = .scientific;
                                 break;
                             case "SpellOutStyle":
-                                dataSet.valueFormatter?.numberStyle = .spellOut;
+                                numberFormatter.numberStyle = .spellOut;
                                 break;
                             default:
-                                dataSet.valueFormatter?.numberStyle = .none;
+                                numberFormatter.numberStyle = .none;
                             }
                         }
                         
-                        dataSet.valueFormatter?.minimumFractionDigits = minimumDecimalPlaces;
-                        dataSet.valueFormatter?.maximumFractionDigits = maximumDecimalPlaces;
+                        numberFormatter.minimumFractionDigits = minimumDecimalPlaces;
+                        numberFormatter.maximumFractionDigits = maximumDecimalPlaces;
+                      
+                        dataSet.valueFormatter = DefaultValueFormatter(formatter: numberFormatter);
                     }
                     
                     sets.append(dataSet);
                 }
             }
             
-            let chartData = BarChartData(xVals: labels, dataSets: sets);
+            let chartData = BarChartData(dataSets: sets);
             self.data = chartData;
         }
         
         if json["drawValueAboveBar"].exists() {
             self.drawValueAboveBarEnabled = json["drawValueAboveBar"].boolValue;
-        }
-        
-        if json["drawHighlightArrow"].exists() {
-            self.drawHighlightArrowEnabled = json["drawHighlightArrow"].boolValue;
         }
         
         if json["drawBarShadow"].exists() {

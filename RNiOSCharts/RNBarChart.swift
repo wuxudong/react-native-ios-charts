@@ -33,22 +33,38 @@ class RNBarChart : BarChartView {
         
         if json["labels"].exists() {
             labels = json["labels"].arrayValue.map({$0.stringValue});
+            self.xAxis.valueFormatter = IndexAxisValueFormatter(values: labels);
         }
       
-        self.data = getBarData(labels, json: json);
+        let data = getBarData(json: json);
       
-        
+        if json["barWidth"].exists() {
+            data.barWidth = json["barWidth"].doubleValue;
+        }
+      
+        self.data = data;
+      
         if json["drawValueAboveBar"].exists() {
             self.drawValueAboveBarEnabled = json["drawValueAboveBar"].boolValue;
-        }
-        
-        if json["drawHighlightArrow"].exists() {
-            self.drawHighlightArrowEnabled = json["drawHighlightArrow"].boolValue;
         }
         
         if json["drawBarShadow"].exists() {
             self.drawBarShadowEnabled = json["drawBarShadow"].boolValue;
         }
+      
+        if json["group"].exists() {
+            let fromX = json["group"]["fromX"].doubleValue;
+            let groupSpace = json["group"]["groupSpace"].doubleValue;
+            let barSpace = json["group"]["barSpace"].doubleValue;
+              
+            self.groupBars(fromX: fromX, groupSpace: groupSpace, barSpace: barSpace)
+        }
+      
+      
+      
+      
+      
+      
         
     }
     

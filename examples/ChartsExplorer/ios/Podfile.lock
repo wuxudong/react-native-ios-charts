@@ -1,32 +1,31 @@
 PODS:
-  - Charts (2.2.5):
-    - Charts/Core (= 2.2.5)
-  - Charts/Core (2.2.5)
+  - Charts (3.0.1):
+    - Charts/Core (= 3.0.1)
+  - Charts/Core (3.0.1)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - Charts (from `https://github.com/consenlabs/Charts.git`, branch `Swift-3.0`)
+  - Charts (from `https://github.com/danielgindi/Charts.git`)
   - SwiftyJSON (from `https://github.com/IBM-Swift/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
   Charts:
-    :branch: Swift-3.0
-    :git: https://github.com/consenlabs/Charts.git
+    :git: https://github.com/danielgindi/Charts.git
   SwiftyJSON:
     :git: https://github.com/IBM-Swift/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
   Charts:
-    :commit: 394973c282bfa5e503ffef7434767c869feb3c07
-    :git: https://github.com/consenlabs/Charts.git
+    :commit: 01480585cdce3eda1e817c25a750644c2140b91a
+    :git: https://github.com/danielgindi/Charts.git
   SwiftyJSON:
     :commit: 21e2e6ba20cc2c0e35162798f0729bb0c4cbe23d
     :git: https://github.com/IBM-Swift/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Charts: b48fcc8d7190de910ff9e9748f5360c8ea7856e5
+  Charts: 3a34c106f8f7c04cec39271d3445f1549481788b
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: aac929bd21f557823b347a86938645f0faf2e84e
+PODFILE CHECKSUM: 06b80ad6c1cb29027ebc01aeddff98fd2aff698b
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.2.0

@@ -17,7 +17,7 @@ class RNCandleStickChartManager : RCTViewManager {
     @objc func setVisibleXRangeMaximum(reactTag: NSNumber, value: CGFloat) {
         self.bridge!.uiManager.addUIBlock { (uiManager: RCTUIManager?, viewRegistry:[NSNumber : UIView]?) in
             let view: RNCandleStickChart = viewRegistry![reactTag] as! RNCandleStickChart;
-            view.setVisibleXRangeMaximum(value);
+            view.setVisibleXRangeMaximum(Double(value));
         }
     }
 }

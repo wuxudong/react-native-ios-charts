@@ -1,7 +1,8 @@
 import React from 'react';
 
 export const commonDataSetProps = {
-  values: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+
+  values: React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.number])).isRequired,
   label: React.PropTypes.string,
   colors: React.PropTypes.arrayOf(React.PropTypes.string),
   drawValues: React.PropTypes.bool,
@@ -13,7 +14,7 @@ export const commonDataSetProps = {
 };
 
 export const globalCommonProps = {
-  labels: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  labels: React.PropTypes.arrayOf(React.PropTypes.string),
   backgroundColor: React.PropTypes.string,
   noDataText: React.PropTypes.string,
   descriptionText: React.PropTypes.string,

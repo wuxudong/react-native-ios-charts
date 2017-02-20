@@ -17,7 +17,7 @@ class RNScatterChartManager : RCTViewManager {
   @objc func setVisibleXRangeMaximum(_ reactTag: NSNumber, value: CGFloat) {
       self.bridge!.uiManager.addUIBlock { (uiManager: RCTUIManager?, viewRegistry:[NSNumber : UIView]?) in
             let view: RNScatterChart = viewRegistry![reactTag] as! RNScatterChart;
-            view.setVisibleXRangeMaximum(value);
+            view.setVisibleXRangeMaximum(Double(value));
         }
     }
 }
