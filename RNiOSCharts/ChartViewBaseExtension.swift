@@ -88,8 +88,7 @@ extension ChartViewBase {
                 )!;
             }
 
-            let ballonMarker = BalloonMarker();
-            ballonMarker.setAttribute(
+            let ballonMarker = BalloonMarker(
                     color: RCTConvert.uiColor(json["marker"]["markerColor"].intValue),
                     font: markerFont,
                     textColor: RCTConvert.uiColor(json["marker"]["markerTextColor"].intValue),

@@ -33,9 +33,9 @@ open class BalloonMarker: MarkerView
   
   
   
-    public func setAttribute(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets)
+    public init(color: UIColor, font: UIFont, textColor: UIColor, insets: UIEdgeInsets)
     {
-        
+        super.init(frame: CGRect.zero);
         self.color = color
         self.font = font
         self.textColor = textColor
@@ -44,9 +44,13 @@ open class BalloonMarker: MarkerView
         _paragraphStyle = NSParagraphStyle.default.mutableCopy() as? NSMutableParagraphStyle
         _paragraphStyle?.alignment = .center
     }
-    
-  
-    
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented");
+    }
+
+
+
     open override func draw(context: CGContext, point: CGPoint)
     {
         if (labelns == nil)
