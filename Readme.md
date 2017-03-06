@@ -1,5 +1,7 @@
 # react-native-ios-charts
 
+# check [react-native-charts-wrapper](https://github.com/wuxudong/react-native-charts-wrapper)
+
 # NOT MAINTAINED, LOOKING FOR NEW PROJECT OWNER
 
 **It's been a while since I've been able to spend some time on this repo and I prefer to transfer it to someone that can do a better job at maintaining it than I am doing right now. If you are interested, please let me know right away at jpadilla1293@gmail.com**
